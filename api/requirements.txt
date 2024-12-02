@@ -1,9 +1,9 @@
-fastapi==0.104.1
+fastapi==0.88.0
 uvicorn==0.24.0.post1
 python-dotenv==1.0.0
 sentence-transformers==2.2.2
 numpy==1.26.2
-pydantic==2.5.2
+pydantic==1.10.13
 semantic-router==0.0.14
 scikit-learn==1.3.2
 semantic-chunker==0.1.0
