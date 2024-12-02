@@ -37,6 +37,9 @@ async def ping():
     return {"status": "ok", "message": "pong"}
 
 def cosine_similarity_numpy(a, b):
+    # Convert inputs to numpy arrays
+    a = np.array(a)
+    b = np.array(b)
     norm_a = np.linalg.norm(a, axis=1)
     norm_b = np.linalg.norm(b, axis=1)
     return np.dot(a, b.T) / np.outer(norm_a, norm_b)
@@ -48,7 +51,7 @@ async def calculate_relevancy(request: RelevancyRequest):
 
         # Initialize encoder with HuggingFace API
         encoder = HuggingFaceEncoder(
-            api_key="",  # Will use free tier if no API key provided
+            api_key=os.getenv("API_KEY"),
             model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
 
