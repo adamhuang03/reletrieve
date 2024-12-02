@@ -4,15 +4,14 @@ from pydantic import BaseModel
 import numpy as np
 import json
 from semantic_chunkers import StatisticalChunker
+from semantic_router import Route
 from semantic_router.encoders import HuggingFaceEncoder
 import logging
+from dotenv import load_dotenv
+import os
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-
+# Load environment variables
+load_dotenv()
 
 app = FastAPI()
 
@@ -41,8 +40,11 @@ async def ping():
 async def calculate_relevancy(request: RelevancyRequest):
     try:
         logger = logging.getLogger(__name__)
+
+        # Initialize encoder with HuggingFace API
         encoder = HuggingFaceEncoder(
-            name="sentence-transformers/all-MiniLM-L6-v2"
+            api_key="",  # Will use free tier if no API key provided
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
 
         chunker = StatisticalChunker(
@@ -55,8 +57,10 @@ async def calculate_relevancy(request: RelevancyRequest):
             plot_chunks=False
         )
 
+        logger.info("Test")
         # logger.info("Processing text: %s", json.loads(request.text)[:200] + "...")
         # logger.info("Processing text: %s", json.loads(request.text))
+        
         chunks_w_format = chunker(docs=[json.loads(request.text)])
         chunker.print(chunks_w_format[0])
 
@@ -104,3 +108,4 @@ async def calculate_relevancy(request: RelevancyRequest):
             "status": "error",
             "message": str(e)
         }
+        # return {"success": True}

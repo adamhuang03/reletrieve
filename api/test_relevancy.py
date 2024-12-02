@@ -33,6 +33,8 @@ for test in test_cases:
         headers={"Content-Type": "application/json"},
         json=test
     )
+    print(f"Response: {response}")
     
-    result = response.json()
-    print(f"Result: {json.dumps(result, indent=2)}")
+    # result = response.json()
+    # print(f"Result: {json.dumps(result, indent=2)}")
+
