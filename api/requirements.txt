@@ -4,4 +4,3 @@ numpy==1.26.2
 pydantic==2.10.2
 semantic-router==0.0.68
 semantic-chunkers==0.0.10
-scikit-learn==1.5.2

@@ -36,6 +36,11 @@ async def root():
 async def ping():
     return {"status": "ok", "message": "pong"}
 
+def cosine_similarity_numpy(a, b):
+    norm_a = np.linalg.norm(a, axis=1)
+    norm_b = np.linalg.norm(b, axis=1)
+    return np.dot(a, b.T) / np.outer(norm_a, norm_b)
+
 @app.post("/relevancy")
 async def calculate_relevancy(request: RelevancyRequest):
     try:
@@ -69,8 +74,7 @@ async def calculate_relevancy(request: RelevancyRequest):
         chunk_embeddings = encoder(chunk_texts)
 
         # 5. Find most similar chunks using cosine similarity
-        from sklearn.metrics.pairwise import cosine_similarity
-        similarities = cosine_similarity(query_embedding, chunk_embeddings)
+        similarities = cosine_similarity_numpy(query_embedding, chunk_embeddings)
         top_k = 5
         top_indices = similarities[0].argsort()[-top_k:][::-1]  # Sort in descending order
         top_similarities = similarities[0][top_indices]
