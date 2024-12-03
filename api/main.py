@@ -5,7 +5,7 @@ import numpy as np
 import json
 from semantic_chunkers import StatisticalChunker
 from semantic_router import Route
-from semantic_router.encoders import HuggingFaceEncoder
+from semantic_router.encoders import HFEndpointEncoder
 import logging
 from dotenv import load_dotenv
 import os
@@ -53,9 +53,14 @@ async def calculate_relevancy(request: RelevancyRequest):
         logger = logging.getLogger(__name__)
 
         # Initialize encoder with HuggingFace API
-        encoder = HuggingFaceEncoder(
-            api_key=os.getenv(API_KEY),
-            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        # encoder = HuggingFaceEncoder(
+        #     huggingface_api_key=os.getenv(API_KEY),
+        #     model_name="sentence-transformers/all-MiniLM-L6-v2"
+        # )
+
+        encoder = HFEndpointEncoder(
+            huggingface_api_key=API_KEY,
+            huggingface_url="https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
         )
 
         chunker = StatisticalChunker(
