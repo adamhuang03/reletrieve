@@ -2,5 +2,5 @@ fastapi==0.104.1
 python-dotenv==1.0.0
 numpy==1.26.2
 pydantic==2.10.2
-semantic-router[local]==0.0.68
+semantic-router==0.0.68
 semantic-chunkers==0.0.10

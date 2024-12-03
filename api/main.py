@@ -51,7 +51,7 @@ async def calculate_relevancy(request: RelevancyRequest):
 
         # Initialize encoder with HuggingFace API
         encoder = HuggingFaceEncoder(
-            api_key=os.getenv("API_KEY"),
+            api_key=os.getenv("API_KEY", ""),
             model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
 
