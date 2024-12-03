@@ -33,8 +33,8 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=["chrome-extension://kaeilcdkmjafpjcogdbocmlgekljehmp"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -129,6 +129,7 @@ async def calculate_relevancy(request: RelevancyRequest):
         logger.info(f"Number of chunks: {len(chunk_texts)}")
         logger.info(f"Chunk texts: {chunk_texts[:5]}")
         chunk_embeddings = encoder(docs=chunk_texts)
+        logger.info(f"Chunk embeddings shape: {np.array(chunk_embeddings).shape}")
 
         # # Log shapes for debugging
         # logger.info(f"Query embedding type: {type(query_embedding)}")
@@ -142,6 +143,7 @@ async def calculate_relevancy(request: RelevancyRequest):
         top_k = 5
         top_indices = similarities[0].argsort()[-top_k:][::-1]  # Sort in descending order
         top_similarities = similarities[0][top_indices]
+        logger.info(f"similarities: {similarities}")
 
         # Print the top 3 chunks with their similarity scores
         BASE_SIMILARITY_VALUE = 0.25
