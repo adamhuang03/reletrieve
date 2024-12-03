@@ -12,6 +12,9 @@ import os
 
 # Load environment variables
 load_dotenv()
+API_KEY = os.getenv("API_KEY")
+if not API_KEY:
+    raise ValueError("API_KEY environment variable is missing.")
 
 app = FastAPI()
 
@@ -51,7 +54,7 @@ async def calculate_relevancy(request: RelevancyRequest):
 
         # Initialize encoder with HuggingFace API
         encoder = HuggingFaceEncoder(
-            api_key=os.getenv("API_KEY", ""),
+            api_key=os.getenv(API_KEY),
             model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
 
