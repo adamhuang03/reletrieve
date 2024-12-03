@@ -73,11 +73,11 @@ async def calculate_relevancy(request: RelevancyRequest):
             plot_chunks=False
         )
 
-        logger.info("Test")
+        logger.info("Test", json_data['text'])
         # logger.info("Processing text: %s", json.loads(request.text)[:200] + "...")
         # logger.info("Processing text: %s", json.loads(request.text))
         
-        chunks_w_format = chunker(docs=[json.loads(request.text)])
+        chunks_w_format = chunker(docs=[request.text])
         chunker.print(chunks_w_format[0])
 
         query_embedding = encoder(["I want to learn about " + request.query])
