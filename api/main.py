@@ -60,8 +60,14 @@ async def calculate_relevancy(request: RelevancyRequest):
 
         encoder = HFEndpointEncoder(
             huggingface_api_key=API_KEY,
-            huggingface_url="https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+            huggingface_url="https://ukapy1uoys1zmu4x.us-east-1.aws.endpoints.huggingface.cloud"
+            # huggingface_url="https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
         )
+
+        # Test the encoder
+        logger.info("Testing encoder...")
+        test_result = encoder(["Hello World!"])
+        logger.info("Encoder test result shape: %s", len(test_result[0]) if test_result else "No result")
 
         chunker = StatisticalChunker(
             encoder=encoder,
