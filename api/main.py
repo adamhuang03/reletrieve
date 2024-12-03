@@ -33,7 +33,12 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["chrome-extension://kaeilcdkmjafpjcogdbocmlgekljehmp"],
+    allow_origins=[
+        "chrome-extension://kaeilcdkmjafpjcogdbocmlgekljehmp",  # Your Chrome extension
+        "https://reletrieve.vercel.app",  # Your Vercel deployment
+        "http://localhost:3000",  # Local development
+        "http://localhost:8000",  # Local FastAPI
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
