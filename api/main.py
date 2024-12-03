@@ -72,7 +72,7 @@ async def calculate_relevancy(request: RelevancyRequest):
         chunker = StatisticalChunker(
             encoder=encoder,
             min_split_tokens=10,
-            # max_split_tokens=100,
+            max_split_tokens=300, # added bc of HF endpoint
             dynamic_threshold=True,
             window_size=4,
             enable_statistics=True,
