@@ -72,8 +72,6 @@ async def calculate_relevancy(request: RelevancyRequest):
             enable_statistics=True,
             plot_chunks=False
         )
-
-        logger.info("Test", json_data['text'])
         # logger.info("Processing text: %s", json.loads(request.text)[:200] + "...")
         # logger.info("Processing text: %s", json.loads(request.text))
         
