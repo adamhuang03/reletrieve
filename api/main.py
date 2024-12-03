@@ -145,7 +145,7 @@ async def calculate_relevancy(request: RelevancyRequest):
 
         # Print the top 3 chunks with their similarity scores
         BASE_SIMILARITY_VALUE = 0.1
-        SIMILARITY_AMPLIFIER = 3
+        SIMILARITY_AMPLIFIER = 4
         SIMILARITY_HIGH_FACTOR = 1.5
         SIMILARITY_THRESHOLD_HIGH = 0.8
         SIMILARITY_THRESHOLD = 0.5
